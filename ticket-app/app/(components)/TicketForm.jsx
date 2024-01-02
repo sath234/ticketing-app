@@ -4,6 +4,18 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const TicketForm = () => {
+  const startingTicketData = {
+    title: "",
+    description: "",
+    category: "Hardware problem",
+    priority: 1,
+    progress: 0,
+    status: "not started",
+    active: "",
+  };
+
+  const [formData, setFormData] = useState(startingTicketData);
+
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -18,17 +30,6 @@ const TicketForm = () => {
     console.log("submitted");
   };
 
-  const startingTicketData = {
-    title: "",
-    description: "",
-    category: "Hardware problem",
-    priority: 1,
-    progress: 0,
-    status: "not started",
-    active: "",
-  };
-
-  const [formData, setFormData] = useState(startingTicketData);
   return (
     <div className="flex justify-center">
       <form
@@ -80,7 +81,7 @@ const TicketForm = () => {
           />
           <label>1</label>
           <input
-            id="priority-1"
+            id="priority-2"
             name="priority"
             type="radio"
             onChange={handleChange}
@@ -89,7 +90,7 @@ const TicketForm = () => {
           />
           <label>2</label>
           <input
-            id="priority-1"
+            id="priority-3"
             name="priority"
             type="radio"
             onChange={handleChange}
@@ -98,7 +99,7 @@ const TicketForm = () => {
           />
           <label>3</label>
           <input
-            id="priority-1"
+            id="priority-4"
             name="priority"
             type="radio"
             onChange={handleChange}
@@ -107,7 +108,7 @@ const TicketForm = () => {
           />
           <label>4</label>
           <input
-            id="priority-1"
+            id="priority-5"
             name="priority"
             type="radio"
             onChange={handleChange}
