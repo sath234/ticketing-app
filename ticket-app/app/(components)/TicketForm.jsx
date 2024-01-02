@@ -4,14 +4,14 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const TicketForm = () => {
+  const router = useRouter();
   const startingTicketData = {
     title: "",
     description: "",
-    category: "Hardware problem",
     priority: 1,
     progress: 0,
     status: "not started",
-    active: "",
+    category: "Hardware Problem",
   };
 
   const [formData, setFormData] = useState(startingTicketData);
@@ -20,14 +20,28 @@ const TicketForm = () => {
     const value = e.target.value;
     const name = e.target.name;
 
-    setFormData((prevState) => ({
-      ...prevState,
+    setFormData((preState) => ({
+      ...preState,
       [name]: value,
     }));
   };
 
-  const handleSubmit = () => {
-    console.log("submitted");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch("/api/Tickets", {
+      method: "POST",
+      body: JSON.stringify({ formData }),
+      //@ts-ignore
+      "Content-Type": "application/json",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to create ticket");
+    }
+
+    router.refresh();
+    router.push("/");
   };
 
   return (
@@ -66,7 +80,7 @@ const TicketForm = () => {
         >
           <option value="Hardware Problem">Hardware Problem</option>
           <option value="Software Problem">Software Problem</option>
-          <option value="Network Problem">Hardware Problem</option>
+          <option value="Network Problem">Network Problem</option>
         </select>
 
         <label>Priority</label>
@@ -103,7 +117,7 @@ const TicketForm = () => {
             name="priority"
             type="radio"
             onChange={handleChange}
-            value={3}
+            value={4}
             checked={formData.priority == 4}
           />
           <label>4</label>
